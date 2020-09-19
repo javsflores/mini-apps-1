@@ -7,28 +7,28 @@ var winnerCheck = function(currentTic) {
   currentTic === 'X' ? currentTic = 'O' : currentTic = 'X';
   var message = "There\'s a winner! " + currentTic + " has won!!!"
   if (results[0] !== undefined && results[0] === results[1] && results[0] === results[2]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
   if (results[0] !== undefined && results[0] === results[3] && results[0] === results[6]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
   if (results[0] !== undefined && results[0] === results[4] && results[0] === results[8]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
   if (results[3] !== undefined && results[3] === results[4] && results[3] === results[5]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
   if (results[6] !== undefined && results[6] === results[7] && results[6] === results[8]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
   if (results[1] !== undefined && results[1] === results[4] && results[1] === results[7]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
   if (results[2] !== undefined && results[2] === results[5] && results[2] === results[8]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
   if (results[2] !== undefined && results[2] === results[4] && results[2] === results[6]) {
-    return gameEnded(message);
+    return gameEnded(message, currentTic);
   }
 
   if (results.length === 9) {
@@ -45,10 +45,10 @@ var setUp = function() {
   tic = "X";
   lastTurn = null;
   results = [];
+  document.getElementById('winner').innerHTML = ""
 
   var anchors = document.getElementsByTagName('td');
   for(var z = 0; z < anchors.length; z++) {
-    // results.push(".");
     var elem = anchors[z];
     elem.onclick = function(e) {
 
@@ -82,8 +82,9 @@ var setUp = function() {
   }
 }
 
-var gameEnded = (message) => {
-  alert(message);
+var gameEnded = (message, winner) => {
+  document.getElementById('winner').innerHTML = 'The winner is: ' + winner;
+  setTimeout(alert(message),100);
   document.getElementById('table').onclick = gameEndedAlert;
   return stopClicks();
 }
